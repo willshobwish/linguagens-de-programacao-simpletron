@@ -45,7 +45,7 @@ int main(void) {
     // Representa o registro
     int programIteration[99], index = 0;
     int teste;
-
+    int content[99];
     // Memory allocation on array
     // Simulate the memory of the Simpletron with a one-dimensional array memory
     // that has 100 elements (livro)
@@ -61,11 +61,26 @@ int main(void) {
     // Colocar todas as operacoes que o programa precisa realizar antes do
     // printWelcome(), assim sera possivel saber se o programa terminou a
     // execucao das instrucoes iniciais
+
+    // When Simpletron begins execution, the special registers are initialized
+    // as follows:
+    // accumulator +0000
+    // instructionCounter 00
+    // instructionRegister +0000
+    // operationCode 00
+    // operand 00
+
     printWelcome();
-    while (programIteration[index] <= 99) {
+    while (programIteration[index] <= 99 && teste != -99999) {
         printf("%.2d ? ", programIteration[index]);
-        index++;
         scanf("%d", &teste);
+        content[index] = teste;
+        index++;
     };
+
     printEnd();
+
+    for (int i = 0; i <= 99 && content[i] != -99999; i++) {
+        printf("%.2d %.4d\n", programIteration[i], content[i]);
+    }
 }
