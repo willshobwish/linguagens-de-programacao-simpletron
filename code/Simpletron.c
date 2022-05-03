@@ -43,12 +43,28 @@ int main(void) {
     // Representa o registro do acumulador
     int instructionCounter;
     // Representa o registro
-    int programIteration = 0;
+    int programIteration[99], index = 0;
     int teste;
+
+    // Memory allocation on array
+    // Simulate the memory of the Simpletron with a one-dimensional array memory
+    // that has 100 elements (livro)
+    for (int i = 0; i <= 99; i++) {
+        programIteration[i] = i;
+        // printf("%.2d\n", programIteration[i]);
+    }
+
+    // Uma das formas de implementacao possivel eh uma construcao de array de
+    // enderecos que armazena as instrucoes que serao inseridos na entrada do
+    // programa
+
+    // Colocar todas as operacoes que o programa precisa realizar antes do
+    // printWelcome(), assim sera possivel saber se o programa terminou a
+    // execucao das instrucoes iniciais
     printWelcome();
-    while (programIteration <= 99) {
-        printf("%.2d ? ", programIteration);
-        programIteration++;
+    while (programIteration[index] <= 99) {
+        printf("%.2d ? ", programIteration[index]);
+        index++;
         scanf("%d", &teste);
     };
     printEnd();
