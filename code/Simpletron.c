@@ -35,7 +35,8 @@ void printWelcome() {
 
 void printEnd() {
     printf(
-        "*** Program loading completed ***\n*** Program execution begins ***");
+        "*** Program loading completed ***\n*** Program execution begins "
+        "***\n");
 }
 
 int main(void) {
