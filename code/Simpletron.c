@@ -44,16 +44,10 @@ int main(void) {
     // Representa o registro do acumulador
     int instructionCounter;
     // Representa o registro
-    int programIteration[99], index = 0;
     int teste;
-    int content[99];
+    int memory[99];
     // Memory allocation on array
     // Simulate the memory of the Simpletron with a one-dimensional array memory
-    // that has 100 elements (livro)
-    for (int i = 0; i <= 99; i++) {
-        programIteration[i] = i;
-        // printf("%.2d\n", programIteration[i]);
-    }
 
     // Uma das formas de implementacao possivel eh uma construcao de array de
     // enderecos que armazena as instrucoes que serao inseridos na entrada do
@@ -70,18 +64,33 @@ int main(void) {
     // instructionRegister +0000
     // operationCode 00
     // operand 00
-
+    for(int i = 0;i<=99;i++){
+        memory[i] = 0;
+    }
     printWelcome();
-    while (programIteration[index] <= 99 && teste != -99999) {
-        printf("%.2d ? ", programIteration[index]);
+    for (int index = 0; index <= 99 && teste != -99999;index++) {
+        printf("%.2d ? ", index);
         scanf("%d", &teste);
-        content[index] = teste;
-        index++;
+        memory[index] = teste;
     };
 
     printEnd();
 
-    for (int i = 0; i <= 99 && content[i] != -99999; i++) {
-        printf("%.2d %.4d\n", programIteration[i], content[i]);
+    for (int i = 0; i <= 99 && memory[i] != -99999; i++) {
+        printf("%.2d %.4d operationCode: %.2d Operand: %.2d\n", i, memory[i],memory[i]/100,memory[i]%100);
+
+    }
+    for(int x =0;x<=9;x++){
+        printf("%6d",x);
+    }
+    printf("\n");
+    int dumpIteration = 0;
+    for (int y=0;y<=9;y++){
+        printf("%d ",y);
+        for(int z=0;z<=9;z++){
+            printf("%+05d ",memory[dumpIteration]);
+            dumpIteration++;
+        }
+        printf("\n");
     }
 }
