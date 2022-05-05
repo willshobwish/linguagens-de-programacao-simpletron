@@ -63,15 +63,15 @@ void printDump(int *memoryArray, int *accumulator, int *instructionCounter,
     }
 }
 
+// When Simpletron begins execution, the special registers are initialized
+// as follows:
 int main(void) {  // Todos os registradores devem ser inicializados com zero
     int accumulator = 0;          // Representa o registro do acumulador
     int instructionCounter = 0;   // Representa o registro
     int instructionRegister = 0;  // Representa o registro da instrução
     int operationCode = 0;        // Codigo de operacao
     int operand = 0;              // Codigo do operando
-    int memory[99];               // Array de memoria
-
-    // Memory allocation on array
+    int memory[99];               // Memory allocation on array
     // Simulate the memory of the Simpletron with a one-dimensional array memory
 
     // Uma das formas de implementacao possivel eh uma construcao de array de
@@ -82,21 +82,15 @@ int main(void) {  // Todos os registradores devem ser inicializados com zero
     // printWelcome(), assim sera possivel saber se o programa terminou a
     // execucao das instrucoes iniciais
 
-    // When Simpletron begins execution, the special registers are initialized
-    // as follows:
-    // accumulator +0000
-    // instructionCounter 00
-    // instructionRegister +0000
-    // operationCode 00
-    // operand 00
-
     for (int i = 0; i <= 99; i++) {  // Inicializacao da memoria com zeros
         memory[i] = 0;
     }
 
     printWelcome();  // Escrita da boas vindas
     int teste = 0;   // variavel de teste
-    for (int index = 0; index <= 99 && teste != -99999; index++) {
+    for (int index = 0; index <= 99 && teste != -99999;
+         index++) {  // Repeticao enquanto nao atingir a condicao de -99999 ou
+                     // 99 instrucoes
         printf("%.2d ? ", index);
         scanf("%d", &teste);
         memory[index] = teste;
@@ -111,14 +105,4 @@ int main(void) {  // Todos os registradores devem ser inicializados com zero
 
     printDump(memory, &accumulator, &instructionCounter, &instructionRegister,
               &operationCode, &operand);
-    // printf("\n");
-    // int dumpIteration = 0;
-    // for (int y = 0; y <= 9; y++) {
-    //     printf("%d ", y);
-    //     for (int z = 0; z <= 9; z++) {
-    //         printf("%+05d ", memory[dumpIteration]);
-    //         dumpIteration++;
-    //     }
-    //     printf("\n");
-    // }
 }
