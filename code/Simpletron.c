@@ -39,13 +39,38 @@ void printEnd() {
         "***\n");
 }
 
-int main(void) {
-    int accumulator;
-    // Representa o registro do acumulador
-    int instructionCounter;
-    // Representa o registro
-    int teste;
-    int memory[99];
+void printDump(int *memoryArray, int *accumulator, int *instructionCounter,
+               int *instructionRegister, int *operationCode, int *operand) {
+    printf("REGISTERS:\n");
+    printf("accumulator: %+.4d\n", *accumulator);
+    printf("instructionCounter: %02d\n", *instructionCounter);
+    printf("instructionRegister: %+.4d\n", *instructionRegister);
+    printf("operationCode: %02d\n", *operationCode);
+    printf("operand: %02d\n\n", *operand);
+    printf("MEMORY:\n");
+    for (int x = 0; x <= 9; x++) {
+        printf("%6d", x);
+    }
+    printf("\n");
+    int dumpIteration = 0;
+    for (int y = 0; y <= 9; y++) {
+        printf("%d ", y);
+        for (int z = 0; z <= 9; z++) {
+            printf("%+05d ", *(memoryArray + dumpIteration));
+            dumpIteration++;
+        }
+        printf("\n");
+    }
+}
+
+int main(void) {  // Todos os registradores devem ser inicializados com zero
+    int accumulator = 0;          // Representa o registro do acumulador
+    int instructionCounter = 0;   // Representa o registro
+    int instructionRegister = 0;  // Representa o registro da instrução
+    int operationCode = 0;        // Codigo de operacao
+    int operand = 0;              // Codigo do operando
+    int memory[99];               // Array de memoria
+
     // Memory allocation on array
     // Simulate the memory of the Simpletron with a one-dimensional array memory
 
@@ -64,11 +89,14 @@ int main(void) {
     // instructionRegister +0000
     // operationCode 00
     // operand 00
-    for(int i = 0;i<=99;i++){
+
+    for (int i = 0; i <= 99; i++) {  // Inicializacao da memoria com zeros
         memory[i] = 0;
     }
-    printWelcome();
-    for (int index = 0; index <= 99 && teste != -99999;index++) {
+
+    printWelcome();  // Escrita da boas vindas
+    int teste = 0;   // variavel de teste
+    for (int index = 0; index <= 99 && teste != -99999; index++) {
         printf("%.2d ? ", index);
         scanf("%d", &teste);
         memory[index] = teste;
@@ -77,20 +105,20 @@ int main(void) {
     printEnd();
 
     for (int i = 0; i <= 99 && memory[i] != -99999; i++) {
-        printf("%.2d %.4d operationCode: %.2d Operand: %.2d\n", i, memory[i],memory[i]/100,memory[i]%100);
+        printf("%.2d %.4d operationCode: %.2d Operand: %.2d\n", i, memory[i],
+               memory[i] / 100, memory[i] % 100);
+    }
 
-    }
-    for(int x =0;x<=9;x++){
-        printf("%6d",x);
-    }
-    printf("\n");
-    int dumpIteration = 0;
-    for (int y=0;y<=9;y++){
-        printf("%d ",y);
-        for(int z=0;z<=9;z++){
-            printf("%+05d ",memory[dumpIteration]);
-            dumpIteration++;
-        }
-        printf("\n");
-    }
+    printDump(memory, &accumulator, &instructionCounter, &instructionRegister,
+              &operationCode, &operand);
+    // printf("\n");
+    // int dumpIteration = 0;
+    // for (int y = 0; y <= 9; y++) {
+    //     printf("%d ", y);
+    //     for (int z = 0; z <= 9; z++) {
+    //         printf("%+05d ", memory[dumpIteration]);
+    //         dumpIteration++;
+    //     }
+    //     printf("\n");
+    // }
 }
