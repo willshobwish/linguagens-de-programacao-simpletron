@@ -44,105 +44,144 @@ void printOperationCode(int *memoryArray) {
     int index = 0;
     bool error = false;
     printf("\n");
-    while (*(memoryArray + index) != -99999 && index <= 99 && !error) {
+    while (*(memoryArray + index) != -99999 && index <= 99 &&
+           !error) {  // Caso a memoria seja diferente de "-99999" (que eh a
+                      // condicao de saida das instrucoes do programa quando o
+                      // usuario escreve) e o index da memoria seja menor ou
+                      // igual a 99 e o "error" nao seja verdadeiro (o "!"
+                      // inverte o valor de "error" que eh um booleano)
         int operationCode = memoryArray[index] / 100;
+        switch (operationCode) {
+            case READ:  // == if (operationCode == READ)
+                printf(
+                    "%.2d %.4d operationCode: %.2d Operand: %.2d "
+                    "Operation: "
+                    "%s\n",
+                    index, memoryArray[index], memoryArray[index] / 100,
+                    memoryArray[index] % 100, "READ");
+                break;
 
-        if (operationCode == READ) {
-            printf(
-                "%.2d %.4d operationCode: %.2d Operand: %.2d "
-                "Operation: "
-                "%s\n",
-                index, memoryArray[index], memoryArray[index] / 100,
-                memoryArray[index] % 100, "READ");
-        } else if (operationCode == WRITE) {
-            printf(
-                "%.2d %.4d operationCode: %.2d Operand: %.2d "
-                "Operation: "
-                "%s\n",
-                index, memoryArray[index], memoryArray[index] / 100,
-                memoryArray[index] % 100, "WRITE");
-        } else if (operationCode == LOAD) {
-            printf(
-                "%.2d %.4d operationCode: %.2d Operand: %.2d "
-                "Operation: "
-                "%s\n",
-                index, memoryArray[index], memoryArray[index] / 100,
-                memoryArray[index] % 100, "LOAD");
-        } else if (operationCode == STORE) {
-            printf(
-                "%.2d %.4d operationCode: %.2d Operand: %.2d "
-                "Operation: "
-                "%s\n",
-                index, memoryArray[index], memoryArray[index] / 100,
-                memoryArray[index] % 100, "STORE");
-        } else if (operationCode == ADD) {
-            printf(
-                "%.2d %.4d operationCode: %.2d Operand: %.2d "
-                "Operation: "
-                "%s\n",
-                index, memoryArray[index], memoryArray[index] / 100,
-                memoryArray[index] % 100, "ADD");
-        } else if (operationCode == SUBTRACT) {
-            printf(
-                "%.2d %.4d operationCode: %.2d Operand: %.2d "
-                "Operation: "
-                "%s\n",
-                index, memoryArray[index], memoryArray[index] / 100,
-                memoryArray[index] % 100, "SUBTRACT");
-        } else if (operationCode == DIVIDE) {
-            printf(
-                "%.2d %.4d operationCode: %.2d Operand: %.2d "
-                "Operation: "
-                "%s\n",
-                index, memoryArray[index], memoryArray[index] / 100,
-                memoryArray[index] % 100, "DIVIDE");
-        } else if (operationCode == MULTIPLY) {
-            printf(
-                "%.2d %.4d operationCode: %.2d Operand: %.2d "
-                "Operation: "
-                "%s\n",
-                index, memoryArray[index], memoryArray[index] / 100,
-                memoryArray[index] % 100, "MULTIPLY");
-        } else if (operationCode == BRANCH) {
-            printf(
-                "%.2d %.4d operationCode: %.2d Operand: %.2d "
-                "Operation: "
-                "%s\n",
-                index, memoryArray[index], memoryArray[index] / 100,
-                memoryArray[index] % 100, "BRANCH");
-        } else if (operationCode == BRANCHNEG) {
-            printf(
-                "%.2d %.4d operationCode: %.2d Operand: %.2d "
-                "Operation: "
-                "%s\n",
-                index, memoryArray[index], memoryArray[index] / 100,
-                memoryArray[index] % 100, "BRANCHNEG");
-        } else if (operationCode == BRANCHZERO) {
-            printf(
-                "%.2d %.4d operationCode: %.2d Operand: %.2d "
-                "Operation: "
-                "%s\n",
-                index, memoryArray[index], memoryArray[index] / 100,
-                memoryArray[index] % 100, "BRANCHZERO");
-        } else if (operationCode == HALT) {
-            printf(
-                "%.2d %.4d operationCode: %.2d Operand: %.2d "
-                "Operation: "
-                "%s\n",
-                index, memoryArray[index], memoryArray[index] / 100,
-                memoryArray[index] % 100, "HALT");
-        } else {
-            printf("FATAL ERROR\n");
-            printf("Error in line %02d with command %04d\n", index,
-                   *(memoryArray + index));
-            error = true;
+            case WRITE:
+                printf(
+                    "%.2d %.4d operationCode: %.2d Operand: %.2d "
+                    "Operation: "
+                    "%s\n",
+                    index, memoryArray[index], memoryArray[index] / 100,
+                    memoryArray[index] % 100, "WRITE");
+                break;
+
+            case LOAD:
+                printf(
+                    "%.2d %.4d operationCode: %.2d Operand: %.2d "
+                    "Operation: "
+                    "%s\n",
+                    index, memoryArray[index], memoryArray[index] / 100,
+                    memoryArray[index] % 100, "LOAD");
+                break;
+
+            case STORE:
+                printf(
+                    "%.2d %.4d operationCode: %.2d Operand: %.2d "
+                    "Operation: "
+                    "%s\n",
+                    index, memoryArray[index], memoryArray[index] / 100,
+                    memoryArray[index] % 100, "STORE");
+                break;
+
+            case ADD:
+                printf(
+                    "%.2d %.4d operationCode: %.2d Operand: %.2d "
+                    "Operation: "
+                    "%s\n",
+                    index, memoryArray[index], memoryArray[index] / 100,
+                    memoryArray[index] % 100, "ADD");
+                break;
+
+            case SUBTRACT:
+                printf(
+                    "%.2d %.4d operationCode: %.2d Operand: %.2d "
+                    "Operation: "
+                    "%s\n",
+                    index, memoryArray[index], memoryArray[index] / 100,
+                    memoryArray[index] % 100, "SUBTRACT");
+                break;
+
+            case DIVIDE:
+                printf(
+                    "%.2d %.4d operationCode: %.2d Operand: %.2d "
+                    "Operation: "
+                    "%s\n",
+                    index, memoryArray[index], memoryArray[index] / 100,
+                    memoryArray[index] % 100, "DIVIDE");
+                break;
+
+            case MULTIPLY:
+                printf(
+                    "%.2d %.4d operationCode: %.2d Operand: %.2d "
+                    "Operation: "
+                    "%s\n",
+                    index, memoryArray[index], memoryArray[index] / 100,
+                    memoryArray[index] % 100, "MULTIPLY");
+                break;
+
+            case BRANCH:
+                printf(
+                    "%.2d %.4d operationCode: %.2d Operand: %.2d "
+                    "Operation: "
+                    "%s\n",
+                    index, memoryArray[index], memoryArray[index] / 100,
+                    memoryArray[index] % 100, "BRANCH");
+                break;
+
+            case BRANCHNEG:
+                printf(
+                    "%.2d %.4d operationCode: %.2d Operand: %.2d "
+                    "Operation: "
+                    "%s\n",
+                    index, memoryArray[index], memoryArray[index] / 100,
+                    memoryArray[index] % 100, "BRANCHNEG");
+                break;
+
+            case BRANCHZERO:
+                printf(
+                    "%.2d %.4d operationCode: %.2d Operand: %.2d "
+                    "Operation: "
+                    "%s\n",
+                    index, memoryArray[index], memoryArray[index] / 100,
+                    memoryArray[index] % 100, "BRANCHZERO");
+                break;
+
+            case HALT:
+                printf(
+                    "%.2d %.4d operationCode: %.2d Operand: %.2d "
+                    "Operation: "
+                    "%s\n",
+                    index, memoryArray[index], memoryArray[index] / 100,
+                    memoryArray[index] % 100, "HALT");
+                break;
+
+            default:  // Ver como que o programa termina, se demonstrara um erro
+                      // se nao colocar o comando de parada ou se nao mostrara o
+                      // erro e executara normalmente
+                printf("FATAL ERROR\n");  // Todo codigo de operacao fora dos
+                                          // define sera considerado "fatal
+                                          // error", precisa ver se aparecera
+                                          // erros mais especificos como de
+                                          // escrita ou de operacao invalida
+                printf("Error in line %02d with command %04d\n", index,
+                       *(memoryArray + index));
+                error = true;  // Define "error" como verdadeiro e para o while
+                               // que esta em cima do switch case
+                break;
         }
         index++;
     }
 }
 
 void printDump(int *memoryArray, int *accumulator, int *instructionCounter,
-               int *instructionRegister, int *operationCode, int *operand) {
+               int *instructionRegister, int *operationCode,
+               int *operand) {  // Talvez seja melhor modularizar mais ainda
+                                // essa funcao porque ha muitos parametros
     printf("REGISTERS:\n");
     printf("accumulator: %+.4d\n", *accumulator);
     printf("instructionCounter: %02d\n", *instructionCounter);
@@ -200,15 +239,12 @@ int main(void) {  // Todos os registradores devem ser inicializados com zero
         }
     };
 
-    printEnd();
+    printEnd();  // Escreve o final da escrita das instrucoes pelo usuario
 
-    // for (int i = 0; i <= 99 && memory[i] != -99999; i++) {
-    //     printf("%.2d %.4d operationCode: %.2d Operand: %.2d\n", i, memory[i],
-    //            memory[i] / 100, memory[i] % 100);
-    // }
-
-    printOperationCode(memory);
+    printOperationCode(memory);  // Mostra cada operacao realizada pelas
+                                 // instrucoes que o usuario colocou
 
     printDump(memory, &accumulator, &instructionCounter, &instructionRegister,
-              &operationCode, &operand);
+              &operationCode,
+              &operand);  // Mostra os registradores e o dump de memoria
 }
