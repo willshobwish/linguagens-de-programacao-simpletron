@@ -50,7 +50,8 @@ Branch to a specific location in memory if the accumulator is negative.
 `#define BRANCHZERO 42`  
 Branch to a specific location in memory if the accumulator is zero.  
 
-`#define HALT 43` Halt—i.e., the program has completed its task.  
+`#define HALT 43`  
+Halt—i.e., the program has completed its task.  
 
 ---
 O computador criado chama-se **Simpletron**, e sua linguagem, **Simpletron Machine Learning** (SML).  
