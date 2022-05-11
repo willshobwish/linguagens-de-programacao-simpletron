@@ -89,6 +89,8 @@ void printOperationCode(int *memoryArray, int *accumulator, int *operationCode, 
                         error = true;
                     }
 
+                    printf("Accumulator: %.4d\n\n", *accumulator);
+
                     break;
 
                 case WRITE:  // Escreve o conteudo da memoria no terminal
@@ -100,7 +102,12 @@ void printOperationCode(int *memoryArray, int *accumulator, int *operationCode, 
                         "%s\n",
                         *instructionCounter, memoryArray[*instructionCounter], *operationCode,
                         *operand, "WRITE");
+
+                    // Funcao
                     printf("%.4d\n", memoryArray[*operand]);
+
+                    printf("Accumulator: %.4d\n\n", *accumulator);
+
                     break;
 
                 case LOAD:  // Carrega o conteudo da memoria no accumulator
@@ -112,7 +119,12 @@ void printOperationCode(int *memoryArray, int *accumulator, int *operationCode, 
                         "%s\n",
                         *instructionCounter, memoryArray[*instructionCounter], *operationCode,
                         *operand, "LOAD");
+
+                    // Funcao
                     *accumulator = memoryArray[*operand];
+
+                    printf("Accumulator: %.4d\n\n", *accumulator);
+
                     break;
 
                 case STORE:  // Armazena o accumulator na memoria especificada
@@ -127,6 +139,9 @@ void printOperationCode(int *memoryArray, int *accumulator, int *operationCode, 
 
                     // Funcao
                     memoryArray[*operand] = *accumulator;
+
+                    printf("Accumulator: %.4d\n\n", *accumulator);
+
                     break;
 
                 // Todas as operacoes aritmeticas sao armazenadas no accumulator
@@ -142,6 +157,9 @@ void printOperationCode(int *memoryArray, int *accumulator, int *operationCode, 
 
                     // Funcao
                     *accumulator += memoryArray[*operand];
+
+                    printf("Accumulator: %.4d\n\n", *accumulator);
+
                     break;
 
                 case SUBTRACT:  // Subtrai o accumulator com o conteudo da memoria
@@ -156,6 +174,9 @@ void printOperationCode(int *memoryArray, int *accumulator, int *operationCode, 
 
                     // Funcao
                     *accumulator -= memoryArray[*operand];
+
+                    printf("Accumulator: %.4d\n\n", *accumulator);
+
                     break;
 
                 case DIVIDE:  // Divide o accumulator com o conteudo da memoria
@@ -170,6 +191,9 @@ void printOperationCode(int *memoryArray, int *accumulator, int *operationCode, 
 
                     // Funcao
                     *accumulator /= memoryArray[*operand];
+
+                    printf("Accumulator: %.4d\n\n", *accumulator);
+
                     break;
 
                 case MULTIPLY:  // Multiplica o accumulator com o conteudo da memoria
@@ -184,6 +208,9 @@ void printOperationCode(int *memoryArray, int *accumulator, int *operationCode, 
 
                     // Funcao
                     *accumulator *= memoryArray[*operand];
+
+                    printf("Accumulator: %.4d\n\n", *accumulator);
+
                     break;
 
                 // Transfer-of-control operations:
@@ -199,6 +226,8 @@ void printOperationCode(int *memoryArray, int *accumulator, int *operationCode, 
 
                     // Funcao
                     *instructionCounter = *operand;
+
+                    printf("Accumulator: %.4d\n\n", *accumulator);
 
                     break;
 
