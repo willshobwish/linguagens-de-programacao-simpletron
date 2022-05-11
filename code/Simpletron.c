@@ -40,6 +40,10 @@ void printEnd() {
         "***\n");
 }
 
+// void printOperationCodeInside(int **memoryArray, int **accumulator, int **operationCode, int **operand, int **instructionCounter, int **instructionRegister) {
+//     printf("%.2d %.4d Operation Code: %.2d Operand: %.2d Operation: ", **instructionCounter, *memoryArray[**instructionCounter], **operationCode, **operand);
+// }
+
 void printOperationCode(int *memoryArray, int *accumulator, int *operationCode, int *operand, int *instructionCounter, int *instructionRegister) {
     *instructionCounter = 0;
 
@@ -66,8 +70,10 @@ void printOperationCode(int *memoryArray, int *accumulator, int *operationCode, 
                         // Le a entrada do usuario
 
                 // Impressao no terminal para testes
+                // printOperationCodeInside(&memoryArray, &accumulator, &operationCode, &operand, &instructionCounter, &instructionRegister);
+                // printf("READ\n");
                 printf(
-                    "%.2d %.4d operationCode: %.2d Operand: %.2d "
+                    "%.2d %.4d Operation Code: %.2d Operand: %.2d "
                     "Operation: "
                     "%s\n",
                     *instructionCounter, memoryArray[*instructionCounter], *operationCode,
@@ -90,7 +96,7 @@ void printOperationCode(int *memoryArray, int *accumulator, int *operationCode, 
 
                 // Impressao no terminal para testes
                 printf(
-                    "%.2d %.4d operationCode: %.2d Operand: %.2d "
+                    "%.2d %.4d Operation Code: %.2d Operand: %.2d "
                     "Operation: "
                     "%s\n",
                     *instructionCounter, memoryArray[*instructionCounter], *operationCode,
@@ -102,7 +108,7 @@ void printOperationCode(int *memoryArray, int *accumulator, int *operationCode, 
 
                 // Impressao no terminal para testes
                 printf(
-                    "%.2d %.4d operationCode: %.2d Operand: %.2d "
+                    "%.2d %.4d Operation Code: %.2d Operand: %.2d "
                     "Operation: "
                     "%s\n",
                     *instructionCounter, memoryArray[*instructionCounter], *operationCode,
@@ -114,7 +120,7 @@ void printOperationCode(int *memoryArray, int *accumulator, int *operationCode, 
 
                 // Impressao no terminal para testes
                 printf(
-                    "%.2d %.4d operationCode: %.2d Operand: %.2d "
+                    "%.2d %.4d Operation Code: %.2d Operand: %.2d "
                     "Operation: "
                     "%s\n",
                     *instructionCounter, memoryArray[*instructionCounter], *operationCode,
@@ -124,11 +130,12 @@ void printOperationCode(int *memoryArray, int *accumulator, int *operationCode, 
                 memoryArray[*operand] = *accumulator;
                 break;
 
+            // Todas as operacoes aritmeticas sao armazenadas no accumulator
             case ADD:  // Adiciona o accumulator com o conteudo da memoria
 
                 // Impressao no terminal para testes
                 printf(
-                    "%.2d %.4d operationCode: %.2d Operand: %.2d "
+                    "%.2d %.4d Operation Code: %.2d Operand: %.2d "
                     "Operation: "
                     "%s\n",
                     *instructionCounter, memoryArray[*instructionCounter], *operationCode,
@@ -142,7 +149,7 @@ void printOperationCode(int *memoryArray, int *accumulator, int *operationCode, 
 
                 // Impressao no terminal para testes
                 printf(
-                    "%.2d %.4d operationCode: %.2d Operand: %.2d "
+                    "%.2d %.4d Operation Code: %.2d Operand: %.2d "
                     "Operation: "
                     "%s\n",
                     *instructionCounter, memoryArray[*instructionCounter], *operationCode,
@@ -156,7 +163,7 @@ void printOperationCode(int *memoryArray, int *accumulator, int *operationCode, 
 
                 // Impressao no terminal para testes
                 printf(
-                    "%.2d %.4d operationCode: %.2d Operand: %.2d "
+                    "%.2d %.4d Operation Code: %.2d Operand: %.2d "
                     "Operation: "
                     "%s\n",
                     *instructionCounter, memoryArray[*instructionCounter], *operationCode,
@@ -166,11 +173,11 @@ void printOperationCode(int *memoryArray, int *accumulator, int *operationCode, 
                 *accumulator /= memoryArray[*operand];
                 break;
 
-            case MULTIPLY:
+            case MULTIPLY:  // Multiplica o accumulator com o conteudo da memoria
 
                 // Impressao no terminal para testes
                 printf(
-                    "%.2d %.4d operationCode: %.2d Operand: %.2d "
+                    "%.2d %.4d Operation Code: %.2d Operand: %.2d "
                     "Operation: "
                     "%s\n",
                     *instructionCounter, memoryArray[*instructionCounter], *operationCode,
@@ -180,44 +187,49 @@ void printOperationCode(int *memoryArray, int *accumulator, int *operationCode, 
                 *accumulator *= memoryArray[*operand];
                 break;
 
-            case BRANCH:
+            // Transfer-of-control operations:
+            case BRANCH:  // Branch to a specific location in memory.
 
                 // Impressao no terminal para testes
                 printf(
-                    "%.2d %.4d operationCode: %.2d Operand: %.2d "
+                    "%.2d %.4d Operation Code: %.2d Operand: %.2d "
                     "Operation: "
                     "%s\n",
                     *instructionCounter, memoryArray[*instructionCounter], *operationCode,
                     *operand, "BRANCH");
+
+                // Funcao
+                *instructionCounter = *operand;
+
                 break;
 
-            case BRANCHNEG:
+            case BRANCHNEG:  // Branch to a specific location in memory if the accumulator is negative.
 
                 // Impressao no terminal para testes
                 printf(
-                    "%.2d %.4d operationCode: %.2d Operand: %.2d "
+                    "%.2d %.4d Operation Code: %.2d Operand: %.2d "
                     "Operation: "
                     "%s\n",
                     *instructionCounter, memoryArray[*instructionCounter], *operationCode,
                     *operand, "BRANCHNEG");
                 break;
 
-            case BRANCHZERO:
+            case BRANCHZERO:  // Branch to a specific location in memory if the accumulator is zero.
 
                 // Impressao no terminal para testes
                 printf(
-                    "%.2d %.4d operationCode: %.2d Operand: %.2d "
+                    "%.2d %.4d Operation Code: %.2d Operand: %.2d "
                     "Operation: "
                     "%s\n",
                     *instructionCounter, memoryArray[*instructionCounter], *operationCode,
                     *operand, "BRANCHZERO");
                 break;
 
-            case HALT:  // Encerra a execucao do programa
+            case HALT:  // Encerra a execucao do programa (quando termina de inserir todas as instrucoes)
 
                 // Impressao no terminal para testes
                 printf(
-                    "%.2d %.4d operationCode: %.2d Operand: %.2d "
+                    "%.2d %.4d Operation Code: %.2d Operand: %.2d "
                     "Operation: "
                     "%s\n",
                     *instructionCounter, memoryArray[*instructionCounter], *operationCode,
@@ -231,7 +243,8 @@ void printOperationCode(int *memoryArray, int *accumulator, int *operationCode, 
 
             default:                      // Ver como que o programa termina, se demonstrara um erro se nao colocar o comando de parada ou se nao mostrara o erro e executara normalmente
                 printf("FATAL ERROR\n");  // Todo codigo de operacao fora dos define sera considerado "fatal error", precisa ver se aparecera erros mais especificos como de escrita ou de operacao invalida
-                printf("Error in line %02d with command %04d\n", *instructionCounter,
+                // O que acontece quando ele pega um valor?
+                printf("Error in line %02d with command %04d\n*** Simpletron execution abnormally terminated ***\n\n", *instructionCounter,
                        memoryArray[*instructionCounter]);
                 error = true;  // Define "error" como verdadeiro e para o while que esta em cima do switch case
                 break;
