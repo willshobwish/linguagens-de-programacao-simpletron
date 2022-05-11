@@ -19,6 +19,8 @@ Read a word from the terminal into a specific location in memory
 `#define WRITE 11`  
 Write a word from a specific location in memory to the terminal.  
 
+---
+
 **Load/store operations:**  
 `#define LOAD 20`  
 Load a word from a specific location in memory into the accumulator.  
@@ -26,6 +28,8 @@ Load a word from a specific location in memory into the accumulator.
 `#define STORE 21`  
 Store a word from the accumulator into a specific location in
 memory.  
+
+---
 
 **Arithmetic operations:**  
 `#define ADD 30`  
@@ -39,6 +43,8 @@ Divide a word from a specific location in memory into the word in the accumulato
 
 `#define MULTIPLY 33`  
 Multiply a word from a specific location in memory by the word in the accumulator (leave result in accumulator).  
+
+---
 
 **Transfer-of-control operations:**  
 `#define BRANCH 40`  
