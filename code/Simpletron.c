@@ -79,6 +79,7 @@ void printOperationCode(int *memoryArray, int *accumulator, int *operationCode, 
                         *operand, "READ");
 
                     // Funcao
+                    printf("Digite o numero dentro do intervalo: ");
                     scanf("%d", &memoryArray[*operand]);  // necessario escrever no endereco da memoria, por isso o "&"
                     fflush(stdin);
 
@@ -342,17 +343,17 @@ int main(void) {                  // Todos os registradores devem ser inicializa
     }
     if (code != NULL) {
         while (fgets(string, sizeof(string), code) != NULL) {
-            printf("%s", string);
+            printf("%.2d ? %s", instructionCounter, string);
             memory[index] = atoi(string);
             ++index;
         }
     }
-    printf("\n");
-    index = 0;
-    while (index < 20) {
-        printf("Memoria %.2d :%d\n", index, memory[index]);
-        ++index;
-    }
+    // printf("\n");
+    // index = 0;
+    // while (index < 20) {
+    //     printf("Memoria %.2d :%d\n", index, memory[index]);
+    //     ++index;
+    // }
     printEnd();  // Escreve o final da escrita das instrucoes pelo usuario
 
     printOperationCode(memory, &accumulator, &operationCode, &operand, &instructionCounter, &instructionRegister);  // Mostra cada operacao realizada pelas instrucoes que o usuario colocou
