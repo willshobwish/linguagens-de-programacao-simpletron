@@ -332,15 +332,27 @@ int main(void) {                  // Todos os registradores devem ser inicializa
 
     printWelcome();  // Escrita da boas vindas
     int teste = 0;   // variavel de teste
-    for (instructionCounter = 0; instructionCounter <= 99 && teste != -99999;
-         instructionCounter++) {  // Repeticao enquanto nao atingir a condicao de -99999 ou 99 instrucoes
-        printf("%.2d ? ", instructionCounter);
-        scanf("%d", &teste);
-        if (teste != -99999) {
-            memory[instructionCounter] = teste;
-        }
-    };
 
+    FILE *code = fopen("teste.txt", "r");
+    char c, string[7];  // string[6]={'1','0','1','1','\n','\0'}
+    int index = 0;
+
+    for (int i = 0; i < 100; i++) {
+        memory[i] = 0;
+    }
+    if (code != NULL) {
+        while (fgets(string, sizeof(string), code) != NULL) {
+            printf("%s", string);
+            memory[index] = atoi(string);
+            ++index;
+        }
+    }
+    printf("\n");
+    index = 0;
+    while (index < 20) {
+        printf("Memoria %.2d :%d\n", index, memory[index]);
+        ++index;
+    }
     printEnd();  // Escreve o final da escrita das instrucoes pelo usuario
 
     printOperationCode(memory, &accumulator, &operationCode, &operand, &instructionCounter, &instructionRegister);  // Mostra cada operacao realizada pelas instrucoes que o usuario colocou
