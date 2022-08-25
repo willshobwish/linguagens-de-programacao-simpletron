@@ -40,17 +40,11 @@ void printEnd() {
         "***\n");
 }
 
-// void printOperationCodeInside(int **memoryArray, int **accumulator, int **operationCode, int **operand, int **instructionCounter, int **instructionRegister) {
-//     printf("%.2d %.4d Operation Code: %.2d Operand: %.2d Operation: ", **instructionCounter, *memoryArray[**instructionCounter], **operationCode, **operand);
-// }
-
 void printOperationCode(int *memoryArray, int *accumulator, int *operationCode, int *operand, int *instructionCounter, int *instructionRegister) {
     *instructionCounter = 0;
 
-    // Flags ou sinalizadores de controle de execucao do while que contem o switch, caso um deles retorne verdadeiro, na condicao do while sera false devido o operador logico "!"
-    bool error = false;  // Caso de erro na leitura das instrucoes, comandos ou operacoes invalidas
-    bool halt = false;   // Caso o programa tenha o codigo de termino de instrucoes
-
+    bool error = false;  // Flags ou sinalizadores de controle de execucao do while que contem o switch, caso um deles retorne verdadeiro, na condicao do while sera false devido o operador logico "!"
+    bool halt = false;   // Caso tenha erro na leitura das instrucoes, comandos, operacoes invalidas ou codigo de termino de instrucoes
     printf("\n");
 
     while (memoryArray[*instructionCounter] != -99999 && *instructionCounter <= 99 && !error && !halt) {  // Caso a memoria seja diferente de "-99999" (que eh a condicao de saida das instrucoes do programa quando o usuario escreve) e o index da memoria seja menor ou igual a 99 e o "error" nao seja verdadeiro (o "!" inverte o valor de "error" que eh um booleano)
@@ -67,7 +61,6 @@ void printOperationCode(int *memoryArray, int *accumulator, int *operationCode, 
             switch (*operationCode) {
                 case READ:  // == if (operationCode == READ)
                             // Le a entrada do usuario
-
                     // Impressao no terminal para testes
                     // printOperationCodeInside(&memoryArray, &accumulator, &operationCode, &operand, &instructionCounter, &instructionRegister);
                     // printf("READ\n");
@@ -89,9 +82,7 @@ void printOperationCode(int *memoryArray, int *accumulator, int *operationCode, 
                         printf("*** Simpletron execution abnormally terminated ***\n");
                         error = true;
                     }
-
                     printf("Accumulator: %.4d\n\n", *accumulator);
-
                     break;
 
                 case WRITE:  // Escreve o conteudo da memoria no terminal
@@ -106,13 +97,10 @@ void printOperationCode(int *memoryArray, int *accumulator, int *operationCode, 
 
                     // Funcao
                     printf("%.4d\n", memoryArray[*operand]);
-
                     printf("Accumulator: %.4d\n\n", *accumulator);
-
                     break;
 
                 case LOAD:  // Carrega o conteudo da memoria no accumulator
-
                     // Impressao no terminal para testes
                     printf(
                         "%.2d %.4d Operation Code: %.2d Operand: %.2d "
@@ -123,9 +111,7 @@ void printOperationCode(int *memoryArray, int *accumulator, int *operationCode, 
 
                     // Funcao
                     *accumulator = memoryArray[*operand];
-
                     printf("Accumulator: %.4d\n\n", *accumulator);
-
                     break;
 
                 case STORE:  // Armazena o accumulator na memoria especificada
@@ -164,7 +150,6 @@ void printOperationCode(int *memoryArray, int *accumulator, int *operationCode, 
                     break;
 
                 case SUBTRACT:  // Subtrai o accumulator com o conteudo da memoria
-
                     // Impressao no terminal para testes
                     printf(
                         "%.2d %.4d Operation Code: %.2d Operand: %.2d "
@@ -175,13 +160,10 @@ void printOperationCode(int *memoryArray, int *accumulator, int *operationCode, 
 
                     // Funcao
                     *accumulator -= memoryArray[*operand];
-
                     printf("Accumulator: %.4d\n\n", *accumulator);
-
                     break;
 
                 case DIVIDE:  // Divide o accumulator com o conteudo da memoria
-
                     // Impressao no terminal para testes
                     printf(
                         "%.2d %.4d Operation Code: %.2d Operand: %.2d "
@@ -189,16 +171,12 @@ void printOperationCode(int *memoryArray, int *accumulator, int *operationCode, 
                         "%s\n",
                         *instructionCounter, memoryArray[*instructionCounter], *operationCode,
                         *operand, "DIVIDE");
-
                     // Funcao
                     *accumulator /= memoryArray[*operand];
-
                     printf("Accumulator: %.4d\n\n", *accumulator);
-
                     break;
 
                 case MULTIPLY:  // Multiplica o accumulator com o conteudo da memoria
-
                     // Impressao no terminal para testes
                     printf(
                         "%.2d %.4d Operation Code: %.2d Operand: %.2d "
@@ -206,17 +184,13 @@ void printOperationCode(int *memoryArray, int *accumulator, int *operationCode, 
                         "%s\n",
                         *instructionCounter, memoryArray[*instructionCounter], *operationCode,
                         *operand, "MULTIPLY");
-
                     // Funcao
                     *accumulator *= memoryArray[*operand];
-
                     printf("Accumulator: %.4d\n\n", *accumulator);
-
                     break;
 
                 // Transfer-of-control operations:
                 case BRANCH:  // Branch to a specific location in memory.
-
                     // Impressao no terminal para testes
                     printf(
                         "%.2d %.4d Operation Code: %.2d Operand: %.2d "
@@ -227,13 +201,10 @@ void printOperationCode(int *memoryArray, int *accumulator, int *operationCode, 
 
                     // Funcao
                     *instructionCounter = *operand;
-
                     printf("Accumulator: %.4d\n\n", *accumulator);
-
                     break;
 
                 case BRANCHNEG:  // Branch to a specific location in memory if the accumulator is negative.
-
                     // Impressao no terminal para testes
                     printf(
                         "%.2d %.4d Operation Code: %.2d Operand: %.2d "
@@ -244,7 +215,6 @@ void printOperationCode(int *memoryArray, int *accumulator, int *operationCode, 
                     break;
 
                 case BRANCHZERO:  // Branch to a specific location in memory if the accumulator is zero.
-
                     // Impressao no terminal para testes
                     printf(
                         "%.2d %.4d Operation Code: %.2d Operand: %.2d "
@@ -255,7 +225,6 @@ void printOperationCode(int *memoryArray, int *accumulator, int *operationCode, 
                     break;
 
                 case HALT:  // Encerra a execucao do programa (quando termina de inserir todas as instrucoes)
-
                     // Impressao no terminal para testes
                     printf(
                         "%.2d %.4d Operation Code: %.2d Operand: %.2d "
@@ -263,11 +232,9 @@ void printOperationCode(int *memoryArray, int *accumulator, int *operationCode, 
                         "%s\n",
                         *instructionCounter, memoryArray[*instructionCounter], *operationCode,
                         *operand, "HALT");
-
                     // Funcao
                     printf("\n*** Simpletron execution terminated ***\n\n");
                     halt = true;  // Define halt como true, retornando no while como false devido ao operador logico "!" na condicao de execucao
-
                     break;
 
                 default:                      // Ver como que o programa termina, se demonstrara um erro se nao colocar o comando de parada ou se nao mostrara o erro e executara normalmente
@@ -348,16 +315,8 @@ int main(void) {                  // Todos os registradores devem ser inicializa
             ++index;
         }
     }
-    // printf("\n");
-    // index = 0;
-    // while (index < 20) {
-    //     printf("Memoria %.2d :%d\n", index, memory[index]);
-    //     ++index;
-    // }
-    printEnd();  // Escreve o final da escrita das instrucoes pelo usuario
-
+    printEnd();                                                                                                     // Escreve o final da escrita das instrucoes pelo usuario
     printOperationCode(memory, &accumulator, &operationCode, &operand, &instructionCounter, &instructionRegister);  // Mostra cada operacao realizada pelas instrucoes que o usuario colocou
-
     printDump(memory, &accumulator, &instructionCounter, &instructionRegister,
               &operationCode,
               &operand);  // Mostra os registradores e o dump de memoria
