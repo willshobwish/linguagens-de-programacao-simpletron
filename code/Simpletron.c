@@ -42,13 +42,14 @@ void printEnd() {
 
 void printOperationCode(int *memoryArray, int *accumulator, int *operationCode, int *operand, int *instructionCounter, int *instructionRegister) {
     *instructionCounter = 0;
-
+    bool branch = false;
+    // Flag que indica mudanca de fluxo de controle, assim o instruction counter nao eh executado
     bool error = false;  // Flags ou sinalizadores de controle de execucao do while que contem o switch, caso um deles retorne verdadeiro, na condicao do while sera false devido o operador logico "!"
     bool halt = false;   // Caso tenha erro na leitura das instrucoes, comandos, operacoes invalidas ou codigo de termino de instrucoes
     printf("\n");
 
     while (memoryArray[*instructionCounter] != -99999 && *instructionCounter <= 99 && !error && !halt) {  // Caso a memoria seja diferente de "-99999" (que eh a condicao de saida das instrucoes do programa quando o usuario escreve) e o index da memoria seja menor ou igual a 99 e o "error" nao seja verdadeiro (o "!" inverte o valor de "error" que eh um booleano)
-
+        branch = false;
         *operationCode = memoryArray[*instructionCounter] / 100;  //  memoryArray[*instructionCounter] == *(memoryArray + *instructionCounter)
         *operand = memoryArray[*instructionCounter] % 100;
         *instructionRegister = memoryArray[*instructionCounter];
@@ -59,8 +60,9 @@ void printOperationCode(int *memoryArray, int *accumulator, int *operationCode, 
             error = true;
         } else {
             switch (*operationCode) {
-                case READ:  // == if (operationCode == READ)
-                            // Le a entrada do usuario
+                case READ:
+                    // == if (operationCode == READ)
+                    // Le a entrada do usuario
                     // Impressao no terminal para testes
                     // printOperationCodeInside(&memoryArray, &accumulator, &operationCode, &operand, &instructionCounter, &instructionRegister);
                     // printf("READ\n");
@@ -202,6 +204,7 @@ void printOperationCode(int *memoryArray, int *accumulator, int *operationCode, 
                     // Funcao
                     *instructionCounter = *operand;
                     printf("Accumulator: %.4d\n\n", *accumulator);
+                    branch = true;
                     break;
 
                 case BRANCHNEG:  // Branch to a specific location in memory if the accumulator is negative.
@@ -212,6 +215,12 @@ void printOperationCode(int *memoryArray, int *accumulator, int *operationCode, 
                         "%s\n",
                         *instructionCounter, memoryArray[*instructionCounter], *operationCode,
                         *operand, "BRANCHNEG");
+                    // Funcao
+                    if (*accumulator < 0) {
+                        *instructionCounter = *operand;
+                        branch = true;
+                    }
+
                     break;
 
                 case BRANCHZERO:  // Branch to a specific location in memory if the accumulator is zero.
@@ -222,6 +231,10 @@ void printOperationCode(int *memoryArray, int *accumulator, int *operationCode, 
                         "%s\n",
                         *instructionCounter, memoryArray[*instructionCounter], *operationCode,
                         *operand, "BRANCHZERO");
+                    if (*accumulator == 0) {
+                        *instructionCounter = *operand;
+                        branch = true;
+                    }
                     break;
 
                 case HALT:  // Encerra a execucao do programa (quando termina de inserir todas as instrucoes)
@@ -237,7 +250,8 @@ void printOperationCode(int *memoryArray, int *accumulator, int *operationCode, 
                     halt = true;  // Define halt como true, retornando no while como false devido ao operador logico "!" na condicao de execucao
                     break;
 
-                default:                      // Ver como que o programa termina, se demonstrara um erro se nao colocar o comando de parada ou se nao mostrara o erro e executara normalmente
+                default:
+                    // Ver como que o programa termina, se demonstrara um erro se nao colocar o comando de parada ou se nao mostrara o erro e executara normalmente
                     printf("FATAL ERROR\n");  // Todo codigo de operacao fora dos define sera considerado "fatal error", precisa ver se aparecera erros mais especificos como de escrita ou de operacao invalida
                     // O que acontece quando ele pega um valor?
                     printf("Error in line %02d with command %04d\n*** Simpletron execution abnormally terminated ***\n\n", *instructionCounter,
@@ -246,7 +260,9 @@ void printOperationCode(int *memoryArray, int *accumulator, int *operationCode, 
                     break;
             }
         }
-        *instructionCounter += 1;  // Quando chega ao final do switch, ele incrementa em um para executar a proxima instrucao
+        if (!branch) {
+            *instructionCounter += 1;  // Quando chega ao final do switch, ele incrementa em um para executar a proxima instrucao
+        }
     }
 }
 
@@ -301,7 +317,10 @@ int main(void) {                  // Todos os registradores devem ser inicializa
     printWelcome();  // Escrita da boas vindas
     int teste = 0;   // variavel de teste
 
-    FILE *code = fopen("teste.txt", "r");
+    // FILE *code = fopen("teste.txt", "r");
+    // FILE *code = fopen("testebranch.txt", "r");
+    // FILE *code = fopen("testebranchzero.txt", "r");
+    FILE *code = fopen("testebranchneg.txt", "r");
     char c, string[7];  // string[6]={'1','0','1','1','\n','\0'}
     int index = 0;
 
@@ -315,7 +334,8 @@ int main(void) {                  // Todos os registradores devem ser inicializa
             ++index;
         }
     }
-    printEnd();                                                                                                     // Escreve o final da escrita das instrucoes pelo usuario
+    printEnd();
+    // Escreve o final da escrita das instrucoes pelo usuario
     printOperationCode(memory, &accumulator, &operationCode, &operand, &instructionCounter, &instructionRegister);  // Mostra cada operacao realizada pelas instrucoes que o usuario colocou
     printDump(memory, &accumulator, &instructionCounter, &instructionRegister,
               &operationCode,
