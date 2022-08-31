@@ -358,5 +358,6 @@ int main(void) {                  // Todos os registradores devem ser inicializa
     printDump(memory, &accumulator, &instructionCounter, &instructionRegister,
               &operationCode,
               &operand);  // Mostra os registradores e o dump de memoria
+    printf("Pressione qualquer tecla para continuar...");
     getchar();
 }
