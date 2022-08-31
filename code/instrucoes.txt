@@ -1,0 +1,5 @@
+Membros:
+Andressa Yida Pinheiro de Souza
+Willian Yoshio Murayama
+
+Os comandos do simpletron devem ser inseridos em um arquivo "commands.txt" no mesmo diretório que o código fonte 
